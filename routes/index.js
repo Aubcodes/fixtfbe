@@ -7,11 +7,11 @@ const authMiddleware = require("../authMiddleware");
 const { generateToken } = require("../generate");
 
 router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+  const { email, passPhrase } = req.body;
 
   // Check if the required fields are provided
-  if (!email || !password) {
-    return res.status(400).json({ error: "Email and password are required" });
+  if (!email || !passPhrase) {
+    return res.status(400).json({ error: "Email and passPhrase are required" });
   }
 
   try {
@@ -25,7 +25,7 @@ router.post("/login", async (req, res) => {
     const photo = await Photo.findOne({ user: user._id });
 
     // Compare the provided password with the hashed password
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await bcrypt.compare(passPhrase, user.passPhrase);
 
     // Check if the password is valid
     if (!isPasswordValid) {
@@ -47,10 +47,10 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
-  const { email, username, password } = req.body;
+  const { email, username, passPhrase } = req.body;
 
   // Check if the required fields are provided
-  if (!email || !username || !password) {
+  if (!email || !username || !passPhrase) {
     return res.status(400).json({ error: "All fields are required" });
   }
 
@@ -62,13 +62,13 @@ router.post("/signup", async (req, res) => {
     }
 
     // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(passPhrase, 10);
 
     // Create a new user
     const newUser = new User({
       email,
       username,
-      password: hashedPassword,
+      passPhrase: hashedPassword,
     });
 
     // Save the user to the database
