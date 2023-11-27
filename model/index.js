@@ -6,6 +6,17 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  merchantId: {
+    type: String,
+  },
+  currentBalance: {
+    type: Number,
+    default: 0,
+  },
+  amountDeposited: {
+    type: Number,
+    default: 0,
+  },
   username: {
     type: String,
     required: true,
@@ -13,6 +24,10 @@ const userSchema = new mongoose.Schema({
   passPhrase: {
     type: String,
     required: true,
+  },
+  isAdmin: {
+    type: Boolean,
+    default: false,
   },
 });
 

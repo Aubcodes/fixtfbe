@@ -4,11 +4,11 @@ const PORT = 4005;
 
 const express = require("express");
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
 const cors = require("cors");
 const router = require("./routes");
 const fileUpload = require("express-fileupload");
-const { User, Photo } = require("./model");
+const { User, Photo, Admin } = require("./model");
+const bcrypt = require("bcrypt");
 
 const app = express();
 
@@ -28,14 +28,5 @@ mongoose
   });
 
 app.use("/api/v1", router);
-
-const newDnd = async () => {
-  //   await User.deleteMany();
-  const res = await User.deleteMany({});
-  const photo = await Photo.deleteMany({});
-  console.log({ res, photo });
-};
-
-// newDnd();
 
 app.listen(PORT, console.log(`PORT ${PORT}`));
